@@ -121,7 +121,7 @@ defmodule HTTPotion.Base do
       def transformer(target, method, url, options) do
         receive do
           { :ibrowse_async_headers, id, status_code, headers } ->
-            if(process_status_code(status_code) in [302, 304]) do
+            if(process_status_code(status_code) in [302, 304, 307]) do
               location = process_response_headers(headers)[:Location]
               request(method, normalize_location(location, url), options)
             else
